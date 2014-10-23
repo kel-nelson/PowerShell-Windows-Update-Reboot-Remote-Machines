@@ -16,12 +16,16 @@ Get-Content C:\server-configs\machine-list.txt | Foreach-Object { #for each comp
 		}
 	}Catch
 	{
-		$_ + ": No Restart Required"
+		
 	}
 
-	If($AutoUpdate)
+	If($AutoUpdate -eq $true)
 	{
-        	$_ + ": Restarting"
-		%{Restart-computer –computername $_ –force; start-sleep -S 30}
+        $_ + ": Restarting"
+		%{Restart-computer -computername $_ -force; start-sleep -S 30}
 	}
+    else
+    {
+        $_ + ": No Restart Required"
+    }
 }
